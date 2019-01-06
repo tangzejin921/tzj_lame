@@ -1,4 +1,4 @@
-#tzj_lame
+# tzj_lame
 
 仅仅是下载了 lame_3.100 代码编译为动态库了
 
