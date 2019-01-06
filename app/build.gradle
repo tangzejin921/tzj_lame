@@ -1,0 +1,43 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.tzj.lame"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags "-frtti -fexceptions"
+                cFlags "-DSTDC_HEADERS"
+                abiFilters 'armeabi-v7a', 'x86'
+//                arguments "-DANDROID_STL=c++_shared"
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+    //解决 More than one file was found with OS independent path 'lib/x86/liblame_3.100.so'
+    packagingOptions {
+        pickFirst 'lib/armeabi-v7a/liblame_3.100.so'
+        pickFirst 'lib/armeabi-v8a/liblame_3.100.so'
+        pickFirst 'lib/arm64-v8a/liblame_3.100.so'
+        pickFirst 'lib/x86/liblame_3.100.so'
+        pickFirst 'lib/x86_64/liblame_3.100.so'
+    }
+}
+
+dependencies {
+}
